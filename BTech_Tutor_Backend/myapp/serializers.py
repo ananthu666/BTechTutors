@@ -1,0 +1,82 @@
+from rest_framework import serializers
+from .models import *
+
+class UserdataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Userdata
+        fields = '__all__'
+
+class BtechSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Btech
+        fields = '__all__'
+
+class DepartmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Department
+        fields = '__all__'
+
+class SubjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subject
+        fields = '__all__'
+
+class DepSubRelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DepSubRel
+        fields = '__all__'
+
+class FileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = File
+        fields = '__all__'
+
+class NotesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notes
+        fields = '__all__'
+
+class QuestionPaperSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuestionPaper
+        fields = '__all__'
+
+class GateDEPSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GateDEP
+        fields = '__all__'
+
+class GateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Gate
+        fields = '__all__'
+
+class BundleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bundle
+        fields = '__all__'
+
+class InternDepSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InternDep
+        fields = '__all__'
+
+class InternshipSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Internship
+        fields = '__all__'
+
+class ProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = '__all__'
+
+class NotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notification
+        fields = '__all__'
+
+class DemoClassSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DemoClass
+        fields = '__all__'
