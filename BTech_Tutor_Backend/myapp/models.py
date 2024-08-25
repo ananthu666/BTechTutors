@@ -6,29 +6,43 @@ class Userdata(models.Model):
 
 class Btech(models.Model):
     year = models.IntegerField()
+    def __str__(self):
+        return f"{self.year}"
 
 class Department(models.Model):
     name = models.CharField(max_length=255)
     maxsem = models.IntegerField()
-    subid = models.ForeignKey('Subject', on_delete=models.CASCADE)
-    btech_id = models.ForeignKey(Btech, on_delete=models.CASCADE)
+    # subid = models.ForeignKey('Subject', on_delete=models.CASCADE)
+    btech_id = models.ForeignKey('Btech', on_delete=models.CASCADE)
+    def __str__(self):
+        return self.name
+    
 
 class Subject(models.Model):
     code = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
     
     syllabusfile_id = models.ForeignKey('File', related_name='syllabus_files', on_delete=models.CASCADE)
-    fullcourse_id = models.ForeignKey('File', related_name='fullcourse_files', on_delete=models.CASCADE)
+    # fullcourse_id = models.ForeignKey('File', related_name='fullcourse_files', on_delete=models.CASCADE)
+    fullcourse_id = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.code + " - " + self.name    
 
 class DepSubRel(models.Model):
-    type = models.CharField(max_length=255)
+    # name = models.CharField(max_length=255)
     subjectid = models.ForeignKey(Subject, on_delete=models.CASCADE)
     depid = models.ForeignKey(Department, on_delete=models.CASCADE)
     semnum = models.IntegerField()
+    def __str__(self):
+        return self.depid.name + " - " + self.subjectid.name 
 
 class File(models.Model):
     name = models.CharField(max_length=255)
     link = models.URLField()
+    def __str__(self):
+        return self.name
+    
 
 class Notes(models.Model):
     module = models.IntegerField()
