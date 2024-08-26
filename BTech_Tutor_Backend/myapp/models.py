@@ -5,7 +5,8 @@ class Userdata(models.Model):
     phno = models.CharField(max_length=15)
 
 class Btech(models.Model):
-    year = models.IntegerField()
+    # year = models.IntegerField()set it as primary key
+    year = models.CharField(max_length=255, primary_key=True)
     def __str__(self):
         return f"{self.year}"
 
@@ -50,7 +51,7 @@ class Notes(models.Model):
     file_id = models.ForeignKey(File, on_delete=models.CASCADE)
 
 class QuestionPaper(models.Model):
-    module = models.IntegerField()
+    # module = models.IntegerField()
     subid = models.ForeignKey(Subject, on_delete=models.CASCADE)
     file_id = models.ForeignKey(File, on_delete=models.CASCADE)
 

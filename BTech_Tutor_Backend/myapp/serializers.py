@@ -16,20 +16,35 @@ class DepartmentSerializer(serializers.ModelSerializer):
         model = Department
         fields = '__all__'
 
-class SubjectSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Subject
-        fields = '__all__'
-
-class DepSubRelSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DepSubRel
-        fields = '__all__'
-
 class FileSerializer(serializers.ModelSerializer):
     class Meta:
         model = File
         fields = '__all__'
+
+class QuestionPaperSerializer(serializers.ModelSerializer):
+    filelink = FileSerializer(source='file_id')
+    class Meta:
+        model = QuestionPaper
+        fields = '__all__'
+
+
+
+class SubjectSerializer(serializers.ModelSerializer):
+    syllabus = FileSerializer(source='syllabusfile_id')
+    question_papers = QuestionPaperSerializer(source='questionpaper_set', many=True)
+
+    class Meta:
+        model = Subject
+        fields = ['id', 'code', 'name', 'syllabus', 'question_papers']
+
+class DepSubRelSerializer(serializers.ModelSerializer):
+    subject_name = serializers.CharField()
+    
+    class Meta:
+        model = DepSubRel
+        fields = '__all__'
+     # Assuming the subject name field is 'name'
+
 
 class NotesSerializer(serializers.ModelSerializer):
     class Meta:

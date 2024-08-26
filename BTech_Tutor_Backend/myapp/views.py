@@ -1,6 +1,6 @@
 from django.shortcuts import render
-
-# Create your views here.
+from django.db.models import F
+from django.db.models import Prefetch
 from rest_framework import viewsets
 from .models import *
 from .serializers import *
@@ -68,3 +68,48 @@ class NotificationViewSet(viewsets.ModelViewSet):
 class DemoClassViewSet(viewsets.ModelViewSet):
     queryset = DemoClass.objects.all()
     serializer_class = DemoClassSerializer
+
+
+
+class GetSubjectViewSet(viewsets.ModelViewSet):
+    queryset = DepSubRel.objects.all()
+    serializer_class = DepSubRelSerializer
+    
+    def get_queryset(self):
+        
+        depname = self.request.query_params.get('depname')
+        semnum = self.request.query_params.get('semnum')
+        scheme=self.request.query_params.get('scheme')
+        
+        # depid=1
+        # semnum=1
+        # scheme=2019
+        
+        queryset = DepSubRel.objects.filter(
+            semnum=semnum,
+            depid__name=depname,
+            depid__btech_id=scheme
+        ).annotate(
+            subject_name=F('subjectid__name')  
+        )
+        
+        
+        
+        return queryset
+        
+
+class GetContentsViewSet(viewsets.ModelViewSet):
+    serializer_class = SubjectSerializer
+
+    def get_queryset(self):
+        subid = self.request.query_params.get('subid')
+
+        queryset = Subject.objects.filter(id=subid).prefetch_related(
+            'syllabusfile_id',
+            Prefetch(
+                'questionpaper_set',
+                queryset=QuestionPaper.objects.select_related('file_id')
+            )
+        )
+
+        return queryset
