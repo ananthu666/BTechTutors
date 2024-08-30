@@ -77,9 +77,13 @@ class GetSubjectViewSet(viewsets.ModelViewSet):
     
     def get_queryset(self):
         
-        depname = self.request.query_params.get('depname')
-        semnum = self.request.query_params.get('semnum')
-        scheme=self.request.query_params.get('scheme')
+        # depname = self.request.query_params.get('depname')
+        # semnum = self.request.query_params.get('semnum')
+        # scheme=self.request.query_params.get('scheme')
+        depname = self.request.data['depname']
+        semnum = self.request.data['semnum']
+        scheme=self.request.data['scheme']
+        
         
         # depid=1
         # semnum=1
@@ -102,7 +106,8 @@ class GetContentsViewSet(viewsets.ModelViewSet):
     serializer_class = SubjectSerializer
 
     def get_queryset(self):
-        subid = self.request.query_params.get('subid')
+        # subid = self.request.query_params.get('subid')
+        subid = self.request.data["subid"]
 
         queryset = Subject.objects.filter(id=subid).prefetch_related(
             'syllabusfile_id',
@@ -111,5 +116,26 @@ class GetContentsViewSet(viewsets.ModelViewSet):
                 queryset=QuestionPaper.objects.select_related('file_id')
             )
         )
+
+        return queryset
+
+class GetNotesViewSet(viewsets.ModelViewSet):
+    serializer_class = FileSerializer
+
+
+    def get_queryset(self):
+        # subid = self.request.query_params.get('subid')
+        subname = self.request.data["subname"]
+        module = self.request.data["module"]
+
+
+        subid = Subject.objects.filter(name=subname).values_list('id', flat=True).first()
+        print("Subid", subid)
+        fileids = Notes.objects.filter(subid=subid, module=module).values_list('file_id', flat=True)
+        for i in fileids:
+            print(i)
+        queryset = File.objects.filter(id__in=fileids)
+
+
 
         return queryset

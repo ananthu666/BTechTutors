@@ -21,6 +21,7 @@ router = DefaultRouter()
 # router.register(r'democlass', DemoClassViewSet)
 router.register(r'get_subjects', GetSubjectViewSet,basename='get_subjects')
 router.register(r'get_contents', GetContentsViewSet,basename='get_contents')
+router.register(r'get_notes', GetNotesViewSet,basename='get_notes')
 
 
 urlpatterns = [
