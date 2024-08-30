@@ -23,6 +23,11 @@ router.register(r'get_subjects', GetSubjectViewSet,basename='get_subjects')
 router.register(r'get_contents', GetContentsViewSet,basename='get_contents')
 router.register(r'get_notes', GetNotesViewSet,basename='get_notes')
 
+router.register(r'get_gate', GetGateViewSet,basename='get_gate')
+router.register(r'get_bundle', GetBundleViewSet,basename='get_bundle')
+router.register(r'get_internship', GetInternshipViewSet,basename='get_internship')
+router.register(r'get_project', GetProjectViewSet,basename='get_project')
+router.register(r'get_notification', GetNotificationViewSet,basename='get_notification')
 
 urlpatterns = [
     path('', include(router.urls)),

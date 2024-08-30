@@ -37,9 +37,7 @@ class QuestionPaperViewSet(viewsets.ModelViewSet):
     queryset = QuestionPaper.objects.all()
     serializer_class = QuestionPaperSerializer
 
-class GateDEPViewSet(viewsets.ModelViewSet):
-    queryset = GateDEP.objects.all()
-    serializer_class = GateDEPSerializer
+
 
 class GateViewSet(viewsets.ModelViewSet):
     queryset = Gate.objects.all()
@@ -49,9 +47,7 @@ class BundleViewSet(viewsets.ModelViewSet):
     queryset = Bundle.objects.all()
     serializer_class = BundleSerializer
 
-class InternDepViewSet(viewsets.ModelViewSet):
-    queryset = InternDep.objects.all()
-    serializer_class = InternDepSerializer
+
 
 class InternshipViewSet(viewsets.ModelViewSet):
     queryset = Internship.objects.all()
@@ -65,9 +61,7 @@ class NotificationViewSet(viewsets.ModelViewSet):
     queryset = Notification.objects.all()
     serializer_class = NotificationSerializer
 
-class DemoClassViewSet(viewsets.ModelViewSet):
-    queryset = DemoClass.objects.all()
-    serializer_class = DemoClassSerializer
+
 
 
 
@@ -109,13 +103,14 @@ class GetContentsViewSet(viewsets.ModelViewSet):
         # subid = self.request.query_params.get('subid')
         subid = self.request.data["subid"]
 
-        queryset = Subject.objects.filter(id=subid).prefetch_related(
-            'syllabusfile_id',
-            Prefetch(
-                'questionpaper_set',
-                queryset=QuestionPaper.objects.select_related('file_id')
-            )
-        )
+        queryset = Subject.objects.filter(id=subid)
+        # .prefetch_related(
+        #     # 'syllabusfile_id',
+        #     Prefetch(
+        #         'questionpaper_set',
+        #         queryset=QuestionPaper.objects.select_related('file_id')
+        #     )
+        # )
 
         return queryset
 
@@ -139,3 +134,51 @@ class GetNotesViewSet(viewsets.ModelViewSet):
 
 
         return queryset
+
+
+class GetGateViewSet(viewsets.ModelViewSet):
+    serializer_class = GateSerializer
+    
+
+    def get_queryset(self):
+        # depname = self.request.query_params.get('depname')
+        depname = self.request.data["depname"]
+        queryset = Gate.objects.filter(depid__name=depname)
+
+        return queryset
+
+
+class GetBundleViewSet(viewsets.ModelViewSet):
+    serializer_class = BundleSerializer
+
+    def get_queryset(self):
+        # depname = self.request.query_params.get('depname')
+        depname = self.request.data["depname"]
+        queryset = Bundle.objects.filter(depid__name=depname)
+
+        return queryset
+
+class GetInternshipViewSet(viewsets.ModelViewSet):
+    serializer_class = InternshipSerializer
+
+    def get_queryset(self):
+        # depname = self.request.query_params.get('depname')
+        depname = self.request.data["depname"]
+        queryset = Internship.objects.filter(depid__name=depname)
+
+        return queryset
+    
+class GetProjectViewSet(viewsets.ModelViewSet):
+    serializer_class = ProjectSerializer
+
+    def get_queryset(self):
+        # depname = self.request.query_params.get('depname')
+        depname = self.request.data["depname"]
+        queryset = Project.objects.filter(depid__name=depname)
+
+        return queryset
+
+class GetNotificationViewSet(viewsets.ModelViewSet):
+    queryset = Notification.objects.all()
+    serializer_class = NotificationSerializer
+    

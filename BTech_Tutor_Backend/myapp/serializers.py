@@ -32,10 +32,11 @@ class QuestionPaperSerializer(serializers.ModelSerializer):
 class SubjectSerializer(serializers.ModelSerializer):
     syllabus = FileSerializer(source='syllabusfile_id')
     question_papers = QuestionPaperSerializer(source='questionpaper_set', many=True)
+    
 
     class Meta:
         model = Subject
-        fields = ['id', 'code', 'name', 'syllabus', 'question_papers']
+        fields = ['id', 'code', 'name', 'syllabus','question_papers','demolink','courselink']
 
 class DepSubRelSerializer(serializers.ModelSerializer):
     subject_name = serializers.CharField()
@@ -56,25 +57,24 @@ class QuestionPaperSerializer(serializers.ModelSerializer):
         model = QuestionPaper
         fields = '__all__'
 
-class GateDEPSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = GateDEP
-        fields = '__all__'
+
 
 class GateSerializer(serializers.ModelSerializer):
+    brochure=FileSerializer(source='brochure_file_id')
+    contact=FileSerializer(source='contact_file_id')
+
     class Meta:
         model = Gate
-        fields = '__all__'
+        fields = ['contact',  'brochure', 'reg_file_link'] 
 
 class BundleSerializer(serializers.ModelSerializer):
+    brochure=FileSerializer(source='brochure_file_id')
+    contact=FileSerializer(source='contact_file_id')
     class Meta:
         model = Bundle
-        fields = '__all__'
+        fields = ['contact', 'brochure', 'reg_file_link']
 
-class InternDepSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = InternDep
-        fields = '__all__'
+
 
 class InternshipSerializer(serializers.ModelSerializer):
     class Meta:
@@ -91,7 +91,7 @@ class NotificationSerializer(serializers.ModelSerializer):
         model = Notification
         fields = '__all__'
 
-class DemoClassSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DemoClass
-        fields = '__all__'
+# class DemoClassSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = DemoClass
+#         fields = '__all__'
