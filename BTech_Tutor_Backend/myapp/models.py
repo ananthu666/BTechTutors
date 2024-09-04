@@ -40,7 +40,7 @@ class DepSubRel(models.Model):
     depid = models.ForeignKey(Department, on_delete=models.CASCADE)
     semnum = models.IntegerField()
     def __str__(self):
-        return self.id
+        return self.subjectid.name + " - " + self.depid.name
 
 class File(models.Model):
     name = models.CharField(max_length=255)
