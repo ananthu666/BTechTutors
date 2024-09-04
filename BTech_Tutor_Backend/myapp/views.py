@@ -74,13 +74,14 @@ class GetSubjectViewSet(viewsets.ModelViewSet):
         # depname = self.request.query_params.get('depname')
         # semnum = self.request.query_params.get('semnum')
         # scheme=self.request.query_params.get('scheme')
+        print(self.request.data)
         depname = self.request.data['depname']
         semnum = self.request.data['semnum']
         scheme=self.request.data['scheme']
         
         
-        # depid=1
-        # semnum=1
+        # depname='cse'
+        # semnum=2
         # scheme=2019
         
         queryset = DepSubRel.objects.filter(
