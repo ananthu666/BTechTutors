@@ -26,6 +26,11 @@ SECRET_KEY = "django-insecure-&8s&40js798b25o8(e%4=gtpl_lybb4g79d@j!490+mryp3vnp
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+# CORS_ALLOWED_ORIGINS = [
+#     'http://localhost:3030',
+# ]
+CORS_ALLOW_ALL_ORIGINS = True # If this is used then `CORS_ALLOWED_ORIGINS` will not have any effect
+CORS_ALLOW_CREDENTIALS = True
 
 
 # Application definition
@@ -39,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'rest_framework',
     'myapp',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +55,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware'
 ]
 
 ROOT_URLCONF = "BTech_Tutor_Backend.urls"
