@@ -71,13 +71,13 @@ class GetSubjectViewSet(viewsets.ModelViewSet):
     
     def get_queryset(self):
         
-        # depname = self.request.query_params.get('depname')
-        # semnum = self.request.query_params.get('semnum')
-        # scheme=self.request.query_params.get('scheme')
+        depname = self.request.query_params.get('depname')
+        semnum = self.request.query_params.get('semnum')
+        scheme=self.request.query_params.get('scheme')
         print(self.request.data)
-        depname = self.request.data['depname']
-        semnum = self.request.data['semnum']
-        scheme=self.request.data['scheme']
+        # depname = self.request.data['depname']
+        # semnum = self.request.data['semnum']
+        # scheme=self.request.data['scheme']
         
         
         # depname='cse'
@@ -101,8 +101,8 @@ class GetContentsViewSet(viewsets.ModelViewSet):
     serializer_class = SubjectSerializer
 
     def get_queryset(self):
-        # subid = self.request.query_params.get('subid')
-        subid = self.request.data["subid"]
+        subid = self.request.query_params.get('subid')
+        # subid = self.request.data["subid"]
 
         queryset = Subject.objects.filter(id=subid)
         # .prefetch_related(
@@ -120,9 +120,10 @@ class GetNotesViewSet(viewsets.ModelViewSet):
 
 
     def get_queryset(self):
-        # subid = self.request.query_params.get('subid')
-        subname = self.request.data["subname"]
-        module = self.request.data["module"]
+        subid = self.request.query_params.get('subid')
+        module = self.request.query_params.get('module')
+        # subname = self.request.data["subname"]
+        # module = self.request.data["module"]
 
 
         subid = Subject.objects.filter(name=subname).values_list('id', flat=True).first()
@@ -142,8 +143,8 @@ class GetGateViewSet(viewsets.ModelViewSet):
     
 
     def get_queryset(self):
-        # depname = self.request.query_params.get('depname')
-        depname = self.request.data["depname"]
+        depname = self.request.query_params.get('depname')
+        # depname = self.request.data["depname"]
         queryset = Gate.objects.filter(depid__name=depname)
 
         return queryset
@@ -153,8 +154,8 @@ class GetBundleViewSet(viewsets.ModelViewSet):
     serializer_class = BundleSerializer
 
     def get_queryset(self):
-        # depname = self.request.query_params.get('depname')
-        depname = self.request.data["depname"]
+        depname = self.request.query_params.get('depname')
+        # depname = self.request.data["depname"]
         queryset = Bundle.objects.filter(depid__name=depname)
 
         return queryset
@@ -163,8 +164,8 @@ class GetInternshipViewSet(viewsets.ModelViewSet):
     serializer_class = InternshipSerializer
 
     def get_queryset(self):
-        # depname = self.request.query_params.get('depname')
-        depname = self.request.data["depname"]
+        depname = self.request.query_params.get('depname')
+        # depname = self.request.data["depname"]
         queryset = Internship.objects.filter(depid__name=depname)
 
         return queryset
@@ -173,8 +174,8 @@ class GetProjectViewSet(viewsets.ModelViewSet):
     serializer_class = ProjectSerializer
 
     def get_queryset(self):
-        # depname = self.request.query_params.get('depname')
-        depname = self.request.data["depname"]
+        depname = self.request.query_params.get('depname')
+        # depname = self.request.data["depname"]
         queryset = Project.objects.filter(depid__name=depname)
 
         return queryset
