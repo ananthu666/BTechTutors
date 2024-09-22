@@ -120,7 +120,7 @@ class GetNotesViewSet(viewsets.ModelViewSet):
 
 
     def get_queryset(self):
-        subid = self.request.query_params.get('subid')
+        subname = self.request.query_params.get('subname')
         module = self.request.query_params.get('module')
         # subname = self.request.data["subname"]
         # module = self.request.data["module"]
