@@ -45,7 +45,7 @@ class DepSubRel(models.Model):
 class File(models.Model):
     name = models.CharField(max_length=255)
     link = models.URLField()
-    fileblob = models.FileField(upload_to='uploads/')
+    fileblob = models.FileField()
     def __str__(self):
         return self.name
     
